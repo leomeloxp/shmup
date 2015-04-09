@@ -14,11 +14,11 @@ BasicGame.Game.prototype = {
         this.setupPlayerIcons();
         this.setupText();
 
-        this.setupAudio();
+        //this.setupAudio();
 
         // Implement keyboard control with arrow keys
         this.cursors = this.input.keyboard.createCursorKeys();
-        
+
     },
 
     update: function () {
@@ -29,13 +29,13 @@ BasicGame.Game.prototype = {
         this.processDelayedEffects();
     },
 
-    
+
     render: function () {
         // Enable debugging
         //this.game.debug.body(this.bullet);
         //this.game.debug.body(this.enemy);
         //this.game.debug.body(this.player);
-        
+
     },
 
     //
@@ -136,7 +136,7 @@ BasicGame.Game.prototype = {
         this.bossPool.createMultiple(1, 'boss');
         this.bossPool.setAll('anchor.x', 0.5);
         this.bossPool.setAll('anchor.y', 0.5);
-        this.bossPool.setAll('outOfBoundsKill', true)
+        this.bossPool.setAll('outOfBoundsKill', true);
         this.bossPool.setAll('reward', BasicGame.BOSS_REWARD, false, false, 0, true);
         this.bossPool.setAll(
             'dropRate', BasicGame.BOSS_DROP_RATE, false, false, 0, true
@@ -152,7 +152,7 @@ BasicGame.Game.prototype = {
 
         this.boss = this.bossPool.getTop();
         this.bossApproaching = false;
-        
+
     },
 
     setupBullets: function () {
@@ -196,7 +196,7 @@ BasicGame.Game.prototype = {
         this.explosionPool.setAll('anchor.x', 0.5);
         this.explosionPool.setAll('anchor.y', 0.5);
         this.explosionPool.forEach(function (explosion) {
-          explosion.animations.add('boom');
+            explosion.animations.add('boom');
         });
     },
 
@@ -205,8 +205,8 @@ BasicGame.Game.prototype = {
         this.powerUpPool.enableBody = true;
         this.powerUpPool.physicsBodyType = Phaser.Physics.ARCARDE;
         this.powerUpPool.createMultiple(5, 'powerup1');
-        this.powerUpPool.setAll('anchor.x', 0.5)
-        this.powerUpPool.setAll('anchor.y', 0.5)
+        this.powerUpPool.setAll('anchor.x', 0.5);
+        this.powerUpPool.setAll('anchor.y', 0.5);
         this.powerUpPool.setAll('outOfBoundsKill', true);
         this.powerUpPool.setAll('checkWorldBounds', true);
         this.powerUpPool.setAll(
@@ -229,7 +229,7 @@ BasicGame.Game.prototype = {
             this.game.width / 2,
             this.game.height - 100,
             'Use Arrow Keys to Move, Press Z to Fire\n' +
-            'Tapping/clicking does both',
+                'Tapping/clicking does both',
             { font: '20px monospace', fill: '#fff', align: 'center' });
         this.instructions.anchor.setTo(0.5, 0.5);
         this.instExpire = this.time.now + BasicGame.INSTRUCTION_EXPIRE;
@@ -283,18 +283,18 @@ BasicGame.Game.prototype = {
             this.player, this.enemyBulletPool, this.playerHit, null, this
         );
     },
-    
+
     spawnEnemies: function () {
         if (this.nextEnemyAt < this.time.now && this.enemyPool.countDead() > 0){
             this.nextEnemyAt = this.time.now + this.enemyDelay;
             var enemy = this.enemyPool.getFirstExists(false);
-            
+
             // Spawn at a random location top of the screen
             enemy.reset(
                 this.rnd.integerInRange(20, this.game.width - 20), 0,
-                BasicGame.ENEMY_HEALTH // same as enemy.health = 
+                BasicGame.ENEMY_HEALTH // same as enemy.health =
             );
-            
+
             // Also randomise speed
             enemy.body.velocity.y = this.rnd.integerInRange(
                 BasicGame.ENEMY_MIN_Y_VELOCITY, BasicGame.ENEMY_MAX_Y_VELOCITY
@@ -393,30 +393,30 @@ BasicGame.Game.prototype = {
         // Defines Player Motion engine
         this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
-        
+
         // Horizontal Move
         if (this.cursors.left.isDown) {
             this.player.body.velocity.x = -this.player.speed;
         } else if (this.cursors.right.isDown) {
             this.player.body.velocity.x = this.player.speed;
         }
-        
+
         // Vertical Move
         if (this.cursors.up.isDown) {
             this.player.body.velocity.y = -this.player.speed;
         } else if (this.cursors.down.isDown) {
             this.player.body.velocity.y = this.player.speed;
         }
-        
+
         // Implement Mouse and Touch movement
         if (this.input.activePointer.isDown &&
-                    this.physics.arcade.distanceToPointer(this.player) > 15) { //Fixes trembling sprite caused by movement overshoot
-            
+            this.physics.arcade.distanceToPointer(this.player) > 15) { //Fixes trembling sprite caused by movement overshoot
+
             this.physics.arcade.moveToPointer(this.player, this.player.speed);
         }
-        
+
         if (this.input.keyboard.isDown(Phaser.Keyboard.Z) ||
-                    this.input.activePointer.isDown) {
+            this.input.activePointer.isDown) {
             if (this.returnText && this.returnText.exists) {
                 this.quitGame();
             } else {
@@ -490,7 +490,7 @@ BasicGame.Game.prototype = {
             player.kill();
             this.displayEnd(false);
         }
-       },
+    },
 
     // Calculates Enemy Damage
     damageEnemy: function (enemy, damage) {
@@ -538,20 +538,20 @@ BasicGame.Game.prototype = {
     addToScore: function (score) {
         this.score += score;
         this.scoreText.text = this.score;
-        if (this.score >= 20 && this.bossPool.countDead() == 1) {
+        if (this.score >= 20000 && this.bossPool.countDead() == 1) {
             this.spawnBoss();
         }
     },
-    
+
     // Manage player's bullets being fired
     fire: function () {
         if (!this.player.alive || this.nextShotAt > this.time.now) {
             return;
         }
-        
+
         this.nextShotAt = this.time.now + this.shotDelay;
         this.playerFireSFX.play();
-        
+
         var bullet;
         if (this.weaponLevel === 0) {
             if (this.bulletPool.countDead() === 0) {
@@ -570,7 +570,7 @@ BasicGame.Game.prototype = {
                 bullet.reset(this.player.x - (10 + i * 6), this.player.y - 20);
                 // The left bullets spread from -95 to -135 degrees
                 this.physics.arcade.velocityFromAngle(
-                    -95 - i * 10, BasicGame.BULLET_VELOCITY, bullet.body.velocity
+                        -95 - i * 10, BasicGame.BULLET_VELOCITY, bullet.body.velocity
                 );
 
                 bullet = this.bulletPool.getFirstExists(false);
@@ -578,8 +578,8 @@ BasicGame.Game.prototype = {
                 bullet.reset(this.player.x + (10 + i * 6), this.player.y - 20);
                 // The right bullets spread from -85 degrees to -45
                 this.physics.arcade.velocityFromAngle(
-                    -85 + i * 10, BasicGame.BULLET_VELOCITY, bullet.body.velocity
-                ); 
+                        -85 + i * 10, BasicGame.BULLET_VELOCITY, bullet.body.velocity
+                );
             }
         }
     },
@@ -608,7 +608,7 @@ BasicGame.Game.prototype = {
         this.endText = this.add.text(
             this.game.width / 2, this.game.height / 2 - 60, msg,
             { font: '72px serif', fill: '#fff'}
-            );
+        );
         this.endText.anchor.setTo(0.5, 0);
 
         this.showReturn = this.time.now + BasicGame.RETURN_MESSAGE_DELAY;
@@ -628,7 +628,7 @@ BasicGame.Game.prototype = {
         this.scoreText.destroy();
         this.endText.destroy();
         this.returnText.destroy();
-    //  Then let's go back to the main menu.
+        //  Then let's go back to the main menu.
         this.state.start('MainMenu');
 
     }
