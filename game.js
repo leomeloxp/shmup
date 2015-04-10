@@ -303,6 +303,12 @@ BasicGame.Game.prototype = {
         }
 
         if (this.nextShooterAt < this.time.now && this.shooterPool.countDead() > 0) {
+            if ( this.bossPool.countDead() === 0) {
+                //Won't spawn shooters if the boss is alive
+                return;
+            };
+
+
             this.nextShooterAt = this.time.now + this.shooterDelay;
             var shooter = this.shooterPool.getFirstExists(false);
 
@@ -538,7 +544,7 @@ BasicGame.Game.prototype = {
     addToScore: function (score) {
         this.score += score;
         this.scoreText.text = this.score;
-        if (this.score >= 20000 && this.bossPool.countDead() == 1) {
+        if (this.score >= BasicGame.BOSS_TRIGGER_SCORE && this.bossPool.countDead() == 1) {
             this.spawnBoss();
         }
     },

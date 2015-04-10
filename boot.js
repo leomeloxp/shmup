@@ -13,6 +13,7 @@ var BasicGame = {
 
   SPAWN_ENEMY_DELAY: Phaser.Timer.SECOND,
   SPAWN_SHOOTER_DELAY: Phaser.Timer.SECOND * 3,
+  BOSS_TRIGGER_SCORE: 10000,
 
   SHOT_DELAY: Phaser.Timer.SECOND * 0.1,
   SHOOTER_SHOT_DELAY: Phaser.Timer.SECOND * 2,
