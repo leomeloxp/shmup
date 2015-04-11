@@ -12,7 +12,16 @@ window.onload = function() {
   game.state.add('MainMenu', BasicGame.MainMenu);
   game.state.add('Game', BasicGame.Game);
 
-  //  Now start the Boot state.
-  game.state.start('Boot');
-  // game.state.start('Game');
+  // The boot order is defined above. Inside here we can decide to skip some steps
+  // eg, for development. To do that uncomment the relevant .start line.
+  $( "select" )
+  .change(function () {
+    $( "select option:selected" ).each(function() {
+      BasicGame.PLAYER_SPRITE = $( this ).val();
+      //  Now start the Boot state.
+      game.state.start('Boot');
+      // game.state.start('Game');
+    });
+  })
+  .change();
 };
