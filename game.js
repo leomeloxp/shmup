@@ -435,17 +435,29 @@ BasicGame.Game.prototype = {
         this.player.body.velocity.x = 0;
         this.player.body.velocity.y = 0;
 
-        // Horizontal Move
+        // Horizontal Move Arrows
         if (this.cursors.left.isDown) {
             this.player.body.velocity.x = -this.player.speed;
         } else if (this.cursors.right.isDown) {
             this.player.body.velocity.x = this.player.speed;
         }
+        // Horizontal Move AD
+        if (this.input.keyboard.isDown(Phaser.Keyboard.A)) {
+            this.player.body.velocity.x = -this.player.speed;
+        } else if (this.input.keyboard.isDown(Phaser.Keyboard.D)) {
+            this.player.body.velocity.x = this.player.speed;
+        }
 
-        // Vertical Move
+        // Vertical Move Arrows
         if (this.cursors.up.isDown) {
             this.player.body.velocity.y = -this.player.speed;
         } else if (this.cursors.down.isDown) {
+            this.player.body.velocity.y = this.player.speed;
+        }
+        // Vertical Move WS
+        if (this.input.keyboard.isDown(Phaser.Keyboard.W)) {
+            this.player.body.velocity.y = -this.player.speed;
+        } else if (this.input.keyboard.isDown(Phaser.Keyboard.S)) {
             this.player.body.velocity.y = this.player.speed;
         }
 
@@ -456,8 +468,9 @@ BasicGame.Game.prototype = {
             this.physics.arcade.moveToPointer(this.player, this.player.speed);
         }
 
-        if (this.input.keyboard.isDown(Phaser.Keyboard.Z) ||
-            this.input.activePointer.isDown) {
+        if ((this.input.keyboard.isDown(Phaser.Keyboard.Z) ||
+            this.input.activePointer.isDown) || 
+            (this.input.keyboard.isDown(Phaser.Keyboard.K))) {
             if (this.returnText && this.returnText.exists) {
                 this.quitGame();
             } else {
