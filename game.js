@@ -34,7 +34,6 @@ BasicGame.Game.prototype = {
     // this.load.audio('playerFire', ['assets/player-fire.ogg', 'assets/player-fire.wav']);
     // this.load.audio('powerUp', ['assets/powerup.ogg', 'assets/powerup.wav']);
     // //this.load.audio('titleMusic', ['audio/main_menu.mp3']);
-    // //  + lots of other required assets here
 
     // },
 
@@ -49,7 +48,7 @@ BasicGame.Game.prototype = {
         this.setupPlayerIcons();
         this.setupText();
 
-        //this.setupAudio();
+        this.setupAudio();
 
         // Implement keyboard control with arrow keys
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -66,7 +65,7 @@ BasicGame.Game.prototype = {
 
 
     render: function () {
-        // Enable debugging
+        // Enable collision range display for debugging
         //this.game.debug.body(this.bullet);
         //this.game.debug.body(this.enemy);
         //this.game.debug.body(this.player);
@@ -388,7 +387,7 @@ BasicGame.Game.prototype = {
                     bullet, this.player, BasicGame.ENEMY_BULLET_VELOCITY
                 );
                 enemy.nextShotAt = this.time.now + BasicGame.SHOOTER_SHOT_DELAY;
-                //this.enemyFireSFX.play();
+                this.enemyFireSFX.play();
             }
         }, this);
 
@@ -398,7 +397,7 @@ BasicGame.Game.prototype = {
 
             this.boss.nextShotAt = this.time.now + BasicGame.BOSS_SHOT_DELAY;
 
-            //this.enemyFireSFX.play();
+            this.enemyFireSFX.play();
 
 
             for (var i = 0; i < 5; i++) {
@@ -529,7 +528,7 @@ BasicGame.Game.prototype = {
             return;
         }
 
-        //this.playerExplosionSFX.play();
+        this.playerExplosionSFX.play();
 
         // Crashing into an enemy only deals 5 damage
         this.damageEnemy(enemy, BasicGame.CRASH_DAMAGE);
@@ -553,7 +552,7 @@ BasicGame.Game.prototype = {
             enemy.play('hit');
         } else {
             this.explode(enemy);
-            //this.explosionSFX.play();
+            this.explosionSFX.play();
             this.spawnPowerUp(enemy);
             this.addToScore(enemy.reward);
             // We check the sprite key (e.g. 'greenEnemy') to see if the sprite is a boss
@@ -583,7 +582,7 @@ BasicGame.Game.prototype = {
     playerPowerUp: function (player, powerUp) {
         this.addToScore(powerUp.reward);
         powerUp.kill();
-        //this.powerUpSFX.play();
+        this.powerUpSFX.play();
         if (this.weaponLevel < 5) {
             this.weaponLevel++;
         }
@@ -604,7 +603,7 @@ BasicGame.Game.prototype = {
         }
 
         this.nextShotAt = this.time.now + this.shotDelay;
-        //this.playerFireSFX.play();
+        this.playerFireSFX.play();
 
         var bullet;
         if (this.weaponLevel === 0) {
