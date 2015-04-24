@@ -15,6 +15,7 @@ BasicGame.Game.prototype = {
         this.setupExplosions();
         this.setupPlayerIcons();
         this.setupText();
+        //Phase Two:
     },
 
     update: function () {
@@ -24,6 +25,7 @@ BasicGame.Game.prototype = {
         this.checkCollisions();
         this.enemyFire();
         this.processDelayedEffects();
+        //Phase Two
     },
 
 
@@ -355,7 +357,9 @@ BasicGame.Game.prototype = {
                 // this.enemyFireSFX.play();
             }
         }, this);
+    },
 
+    bossFire: function() {
         if (this.bossApproaching === false && this.boss.alive &&
             this.boss.nextShotAt < this.time.now &&
             this.enemyBulletPool.countDead() >= 10) {
