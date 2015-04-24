@@ -16,6 +16,7 @@ BasicGame.Game.prototype = {
         this.setupPlayerIcons();
         this.setupText();
         //Phase Two:
+        this.setupBoss();
     },
 
     update: function () {
@@ -26,6 +27,7 @@ BasicGame.Game.prototype = {
         this.enemyFire();
         this.processDelayedEffects();
         //Phase Two
+        this.bossFire();
     },
 
 
@@ -467,17 +469,17 @@ BasicGame.Game.prototype = {
             this.showReturn = false;
         }
 
-        // if (this.bossApproaching && this.boss.y > 80) {
-        //     this.bossApproaching = false;
-        //     this.boss.nextShotAt = 0;
+        if (this.bossApproaching && this.boss.y > 80) {
+            this.bossApproaching = false;
+            this.boss.nextShotAt = 0;
 
-        //     this.boss.body.velocity.y = 0;
-        //     this.boss.body.velocity.x = BasicGame.BOSS_X_VELOCITY;
+            this.boss.body.velocity.y = 0;
+            this.boss.body.velocity.x = BasicGame.BOSS_X_VELOCITY;
 
-        //     // Allow bouncing off world bounds
-        //     this.boss.body.bounce.x = 1;
-        //     this.boss.body.collideWorldBounds = true;
-        // };
+            // Allow bouncing off world bounds
+            this.boss.body.bounce.x = 1;
+            this.boss.body.collideWorldBounds = true;
+        };
     },
 
     //
@@ -560,9 +562,9 @@ BasicGame.Game.prototype = {
     addToScore: function (score) {
         this.score += score;
         this.scoreText.text = this.score;
-        // if (this.score >= BasicGame.BOSS_TRIGGER_SCORE && this.bossPool.countDead() == 1) {
-        //     this.spawnBoss();
-        // }
+        if (this.score >= BasicGame.BOSS_TRIGGER_SCORE && this.bossPool.countDead() == 1) {
+            this.spawnBoss();
+        }
     },
 
     // Manage player's bullets being fired

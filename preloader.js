@@ -35,6 +35,7 @@ BasicGame.Preloader.prototype = {
     this.load.image('enemyBullet', 'assets/enemy-bullet.png');
     this.load.image('powerup1', 'assets/powerup1.png');
     // Phase Two
+    this.load.spritesheet('boss', 'assets/boss.png', 93, 75);
 
   },
 
