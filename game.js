@@ -6,10 +6,24 @@ BasicGame.Game.prototype = {
     /* Creates the game objects (ideally with already loaded assets) */
     create: function () {
         // Phase One:
+        this.setupBackground();
+        this.setupPlayer();
+        this.setupEnemies();
+        // Implement keyboard control with arrow keys
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.setupBullets();
+        this.setupExplosions();
+        this.setupPlayerIcons();
+        this.setupText();
     },
 
     update: function () {
         // Phase One:
+        this.processPlayerInput();
+        this.spawnEnemies();
+        this.checkCollisions();
+        this.enemyFire();
+        this.processDelayedEffects();
     },
 
 
