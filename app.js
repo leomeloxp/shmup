@@ -19,7 +19,6 @@ window.onload = function() {
       BasicGame.PLAYER_SPRITE = $( this ).val();
       //  Now start the Boot state.
       game.state.start('Boot');
-      // game.state.start('Game');
     });
   })
   .change();
