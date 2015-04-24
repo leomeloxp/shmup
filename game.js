@@ -6,10 +6,12 @@ BasicGame.Game.prototype = {
     /* Creates the game objects (ideally with already loaded assets) */
     create: function () {
         // Phase One:
+        //Phase Two:
     },
 
     update: function () {
         // Phase One:
+        //Phase Two
     },
 
 
@@ -341,7 +343,9 @@ BasicGame.Game.prototype = {
                 // this.enemyFireSFX.play();
             }
         }, this);
+    },
 
+    bossFire: function() {
         if (this.bossApproaching === false && this.boss.alive &&
             this.boss.nextShotAt < this.time.now &&
             this.enemyBulletPool.countDead() >= 10) {
