@@ -23,9 +23,8 @@ BasicGame.Preloader.prototype = {
     //  as the files below are loaded in.
     this.load.setPreloadSprite(this.preloadBar);
     this.load.image('titlepage', 'assets/titlepage.png');
-    
-    // Phase One
 
+    // Phase One
     // Phase Two
 
   },

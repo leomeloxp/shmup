@@ -5,11 +5,11 @@ BasicGame.Game = function (game) {
 BasicGame.Game.prototype = {
     /* Creates the game objects (ideally with already loaded assets) */
     create: function () {
-
+        // Phase One:
     },
 
     update: function () {
-
+        // Phase One:
     },
 
 
@@ -112,7 +112,9 @@ BasicGame.Game.prototype = {
         // Start Spawning Shooters 5 seconds after game starts
         this.nextShooterAt = this.time.now + Phaser.Timer.SECOND * 5;
         this.shooterDelay = BasicGame.SPAWN_SHOOTER_DELAY;
+    },
 
+    setupBoss: function() {
         this.bossPool = this.add.group();
         this.bossPool.enableBody = true;
         this.bossPool.physicsBodyType = Phaser.Physics.ARCADE;
@@ -286,10 +288,10 @@ BasicGame.Game.prototype = {
         }
 
         if (this.nextShooterAt < this.time.now && this.shooterPool.countDead() > 0) {
-            if ( this.bossPool.countDead() === 0) {
-                //Won't spawn shooters if the boss is alive
-                return;
-            };
+            // if ( this.bossPool.countDead() === 0) {
+            //     //Won't spawn shooters if the boss is alive
+            //     return;
+            // };
 
 
             this.nextShooterAt = this.time.now + this.shooterDelay;
@@ -336,7 +338,7 @@ BasicGame.Game.prototype = {
                     bullet, this.player, BasicGame.ENEMY_BULLET_VELOCITY
                 );
                 enemy.nextShotAt = this.time.now + BasicGame.SHOOTER_SHOT_DELAY;
-                this.enemyFireSFX.play();
+                // this.enemyFireSFX.play();
             }
         }, this);
 
@@ -346,7 +348,7 @@ BasicGame.Game.prototype = {
 
             this.boss.nextShotAt = this.time.now + BasicGame.BOSS_SHOT_DELAY;
 
-            this.enemyFireSFX.play();
+            // this.enemyFireSFX.play();
 
 
             for (var i = 0; i < 5; i++) {
@@ -477,7 +479,7 @@ BasicGame.Game.prototype = {
             return;
         }
 
-        this.playerExplosionSFX.play();
+        // this.playerExplosionSFX.play();
 
         // Crashing into an enemy only deals 5 damage
         this.damageEnemy(enemy, BasicGame.CRASH_DAMAGE);
@@ -501,7 +503,7 @@ BasicGame.Game.prototype = {
             enemy.play('hit');
         } else {
             this.explode(enemy);
-            this.explosionSFX.play();
+            // this.explosionSFX.play();
             this.spawnPowerUp(enemy);
             this.addToScore(enemy.reward);
             // We check the sprite key (e.g. 'greenEnemy') to see if the sprite is a boss
@@ -531,7 +533,7 @@ BasicGame.Game.prototype = {
     playerPowerUp: function (player, powerUp) {
         this.addToScore(powerUp.reward);
         powerUp.kill();
-        this.powerUpSFX.play();
+        // this.powerUpSFX.play();
         if (this.weaponLevel < 5) {
             this.weaponLevel++;
         }
@@ -552,7 +554,7 @@ BasicGame.Game.prototype = {
         }
 
         this.nextShotAt = this.time.now + this.shotDelay;
-        this.playerFireSFX.play();
+        // this.playerFireSFX.play();
 
         var bullet;
         if (this.weaponLevel === 0) {
