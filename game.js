@@ -395,23 +395,11 @@ BasicGame.Game.prototype = {
         } else if (this.cursors.right.isDown) {
             this.player.body.velocity.x = this.player.speed;
         }
-        // Horizontal Move AD
-        if (this.input.keyboard.isDown(Phaser.Keyboard.A)) {
-            this.player.body.velocity.x = -this.player.speed;
-        } else if (this.input.keyboard.isDown(Phaser.Keyboard.D)) {
-            this.player.body.velocity.x = this.player.speed;
-        }
 
         // Vertical Move Arrows
         if (this.cursors.up.isDown) {
             this.player.body.velocity.y = -this.player.speed;
         } else if (this.cursors.down.isDown) {
-            this.player.body.velocity.y = this.player.speed;
-        }
-        // Vertical Move WS
-        if (this.input.keyboard.isDown(Phaser.Keyboard.W)) {
-            this.player.body.velocity.y = -this.player.speed;
-        } else if (this.input.keyboard.isDown(Phaser.Keyboard.S)) {
             this.player.body.velocity.y = this.player.speed;
         }
 
