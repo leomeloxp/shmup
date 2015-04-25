@@ -7,6 +7,7 @@ BasicGame.Game.prototype = {
     create: function () {
         // Phase One:
         this.setupBackground();
+        this.setupDestroyer();
         this.setupPlayer();
         this.setupEnemies();
         // Implement keyboard control with arrow keys
@@ -30,6 +31,9 @@ BasicGame.Game.prototype = {
         this.processDelayedEffects();
         //Phase Two
         this.bossFire();
+
+        this.spawnDestroyer();
+        this.destroyerFire();
     },
 
 
@@ -51,6 +55,34 @@ BasicGame.Game.prototype = {
         this.enemyFireSFX = this.add.audio('enemyFire');
         this.playerFireSFX = this.add.audio('playerFire');
         this.powerUpSFX = this.add.audio('powerUp');
+    },
+
+    setupDestroyer: function() {
+        // Creates Destroyer enemy sprite pool
+        this.destroyerPool = this.add.group();
+        this.destroyerPool.enableBody = true;
+        this.destroyerPool.physicsBodyType = Phaser.Physics.ARCADE;
+        this.destroyerPool.createMultiple(5, 'destroyer');
+        this.destroyerPool.setAll('anchor.x', 0.5);
+        this.destroyerPool.setAll('anchor.y', 0.5);
+        this.destroyerPool.setAll('outOfBoundsKill', true);
+        this.destroyerPool.setAll('checkWorldBounds', true);
+        // Destroyer points reward
+        this.destroyerPool.setAll('reward', BasicGame.DESTROYER_REWARD, false, false, 0, true);
+        this.destroyerPool.setAll(
+            'dropRate', BasicGame.DESTROYER_DROP_RATE, false, false, 0 ,true
+        );
+
+        // Set the animation for each sprite in destroyerPool
+        this.destroyerPool.forEach(function (enemy) {
+            enemy.animations.add('hit', [ 2, 0, 2, 1], 20, false);
+            enemy.events.onAnimationComplete.add( function(e) {
+                e.play('fly');
+            }, this);
+        });
+        // Start Spawning Destroyers 10 seconds after game starts
+        this.nextDestroyerAt = this.time.now + Phaser.Timer.SECOND * 10;
+        this.destroyerDelay = BasicGame.SPAWN_DESTROYER_DELAY;
     },
 
     setupBackground: function () {
@@ -275,6 +307,11 @@ BasicGame.Game.prototype = {
             this.bulletPool, this.shooterPool, this.enemyHit, null, this
         );
 
+        // Collision between destroyer and bullet
+        this.physics.arcade.overlap(
+            this.bulletPool, this.destroyerPool, this.enemyHit, null, this
+        );
+
         // Collision detection between player and enemy
         this.physics.arcade.overlap(
             this.player, this.enemyPool, this.playerHit, null, this
@@ -358,6 +395,41 @@ BasicGame.Game.prototype = {
                     bullet, this.player, BasicGame.ENEMY_BULLET_VELOCITY
                 );
                 enemy.nextShotAt = this.time.now + BasicGame.SHOOTER_SHOT_DELAY;
+                this.enemyFireSFX.play();
+            }
+        }, this);
+    },
+    
+    spawnDestroyer: function () {
+        if (this.nextDestroyerAt < this.time.now && this.destroyerPool.countDead() > 0){
+            this.nextDestroyerAt = this.time.now + this.destroyerDelay;
+            var destroyer = this.destroyerPool.getFirstExists(false);
+
+            // Spawn at a random location top of the screen
+            destroyer.reset(
+                this.rnd.integerInRange(20, this.game.width - 20), 0,
+                BasicGame.DESTROYER_HEALTH // same as destroyer.health =
+            );
+
+            // Also randomise speed
+            destroyer.body.velocity.y = this.rnd.integerInRange(
+                BasicGame.DESTROYER_MIN_VELOCITY, BasicGame.DESTROYER_MAX_VELOCITY
+            );
+            destroyer.play('fly');
+
+            destroyer.nextShotAt = 0;
+        }
+    },
+
+    destroyerFire: function () {
+        this.destroyerPool.forEachAlive(function (enemy) {
+            if (this.time.now > enemy.nextShotAt && this.enemyBulletPool.countDead() > 0) {
+                var bullet = this.enemyBulletPool.getFirstExists(false);
+                bullet.reset(enemy.x, enemy.y);
+                this.physics.arcade.moveToObject(
+                    bullet, this.player, BasicGame.ENEMY_BULLET_VELOCITY
+                );
+                enemy.nextShotAt = this.time.now + BasicGame.DESTROYER_SHOT_DELAY;
                 this.enemyFireSFX.play();
             }
         }, this);

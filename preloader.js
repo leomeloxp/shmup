@@ -36,6 +36,7 @@ BasicGame.Preloader.prototype = {
     this.load.image('powerup1', 'assets/powerup1.png');
     // Phase Two
     this.load.spritesheet('boss', 'assets/boss.png', 93, 75);
+    this.load.spritesheet('destroyer', 'assets/destroyer.png', 32, 174);
 
     this.load.audio('explosion', ['assets/explosion.ogg', 'assets/explosion.wav']);
     this.load.audio('playerExplosion', ['assets/player-explosion.ogg', 'assets/player-explosion.wav']);
