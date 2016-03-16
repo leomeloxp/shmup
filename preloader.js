@@ -24,24 +24,26 @@ BasicGame.Preloader.prototype = {
     this.load.setPreloadSprite(this.preloadBar);
 
     //  Here we load the rest of the assets our game needs.
-    this.load.image('titlepage', 'assets/titlepage.png');
-    this.load.image('sea', 'assets/sea.png');
-    this.load.image('bullet', 'assets/bullet.png');
-    this.load.image('enemyBullet', 'assets/enemy-bullet.png');
-    this.load.image('powerup1', 'assets/powerup1.png');
-    this.load.spritesheet('greenEnemy', 'assets/enemy.png', 32, 32);
-    this.load.spritesheet('whiteEnemy', 'assets/shooting-enemy.png', 32, 32);
-    this.load.spritesheet('boss', 'assets/boss.png', 93, 75);
-    this.load.spritesheet('explosion', 'assets/explosion.png', 32, 32);
-    this.load.spritesheet('player', 'assets/player'+BasicGame.PLAYER_SPRITE+'.png', 64, 64);
-    this.load.audio('explosion', ['assets/explosion.ogg', 'assets/explosion.wav']);
-    this.load.audio('playerExplosion', ['assets/player-explosion.ogg', 'assets/player-explosion.wav']);
-    this.load.audio('enemyFire', ['assets/enemy-fire.ogg', 'assets/enemy-fire.wav']);
-    this.load.audio('playerFire', ['assets/player-fire.ogg', 'assets/player-fire.wav']);
-    this.load.audio('powerUp', ['assets/powerup.ogg', 'assets/powerup.wav']);
-    // Load any other assets you add into your game follwing the same pattern
-      //this.load.audio('titleMusic', ['audio/main_menu.mp3']);
+    this.load.image('titlepage', 'http://leomeloxp.net/shmup/assets/titlepage.png');
+    this.load.image('sea', 'http://leomeloxp.net/shmup/assets/sea.png');
+    this.load.image('bullet', 'http://leomeloxp.net/shmup/assets/bullet.png');
+    this.load.image('enemyBullet', 'http://leomeloxp.net/shmup/assets/enemy-bullet.png');
+    this.load.image('powerup1', 'http://leomeloxp.net/shmup/assets/powerup1.png');
+    this.load.spritesheet('greenEnemy', 'http://leomeloxp.net/shmup/assets/enemy.png', 32, 32);
+    this.load.spritesheet('whiteEnemy', 'http://leomeloxp.net/shmup/assets/shooting-enemy.png', 32, 32);
+    this.load.spritesheet('boss', 'http://leomeloxp.net/shmup/assets/boss.png', 93, 75);
+    this.load.spritesheet('explosion', 'http://leomeloxp.net/shmup/assets/explosion.png', 32, 32);
+    this.load.spritesheet('player', 'http://leomeloxp.net/shmup/assets/player'+BasicGame.PLAYER_SPRITE+'.png', 64, 64);
 
+    if (BasicGame.ENABLE_SOUND) {
+      this.load.audio('explosion', ['assets/explosion.ogg', 'http://leomeloxp.net/shmup/assets/explosion.wav']);
+      this.load.audio('playerExplosion', ['http://leomeloxp.net/shmup/assets/player-explosion.ogg', 'http://leomeloxp.net/shmup/assets/player-explosion.wav']);
+      this.load.audio('enemyFire', ['http://leomeloxp.net/shmup/assets/enemy-fire.ogg', 'http://leomeloxp.net/shmup/assets/enemy-fire.wav']);
+      this.load.audio('playerFire', ['http://leomeloxp.net/shmup/assets/player-fire.ogg', 'http://leomeloxp.net/shmup/assets/player-fire.wav']);
+      this.load.audio('powerUp', ['http://leomeloxp.net/shmup/assets/powerup.ogg', 'http://leomeloxp.net/shmup/assets/powerup.wav']);
+      // Load any other assets you add into your game follwing the same pattern
+      //this.load.audio('titleMusic', ['audio/main_menu.mp3']);
+    }
   },
 
   create: function () {

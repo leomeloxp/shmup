@@ -13,14 +13,24 @@ window.onload = function() {
   // The boot order is defined above. Inside here we can decide to skip some steps
   // eg, for development. To do that uncomment the relevant .start line.
   game.state.start('Boot');
-  $( "select" )
-  .change(function () {
-    $( "select option:selected" ).each(function() {
-      BasicGame.PLAYER_SPRITE = $( this ).val();
-      //  Now start the Boot state.
+
+  $(document).on('click', '#sound', function(event) {
+    if (confirm('This will restart your game, are you sure?')) {
+      BasicGame.ENABLE_SOUND = $(this).is(':checked');
+      console.log(BasicGame.ENABLE_SOUND);
       game.state.start('Boot');
-      // game.state.start('Game');
-    });
-  })
-  .change();
+    } else{
+      event.preventDefault();
+    }
+  });
+
+  $(document).on('change', 'select', function(event) {
+    if (confirm('This will restart your game, are you sure?')) {
+      BasicGame.PLAYER_SPRITE = $(this).children(':selected').val();
+      console.log(BasicGame.PLAYER_SPRITE);
+      game.state.start('Boot');
+    } else {
+      event.preventDefault();
+    }
+  });
 };

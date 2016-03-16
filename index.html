@@ -1,36 +1,44 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
 
-	<!-- Game Tab Title -->
-	<title>HTML5 Game in an Day</title>
+    <!-- Game Tab Title -->
+    <title>HTML5 Shoot 'em Up Game</title>
 
-	<!-- Styling -->
-	<link rel="stylesheet" type="text/css" href="layout.css">
-	
-	<!-- Add all of Phaser necessary files -->
-    <script src="phaser-arcade-physics.min.js"></script>
+    <!-- Mobile colouring title/status bar -->
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#59D1DB">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#59D1DB">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#59D1DB">
+</head>
+<body>
+    <div style="text-align: center; margin: 0 auto;">
+        <label for="sound">
+            Enable sound?
+            <input id="sound" type="checkbox">
+        </label>
+        <label for="plane">
+            Select your plane:
+            <select name="plane">
+                <option value="">Plane 1</option>
+                <option value="2">Plane 2</option>
+                <option value="3">Plane 3</option>
+                <option value="4">Plane 4</option>
+            </select>
+        </label>
+        <div id="gameContainer" class="small-12 columns"></div>
+    </div>
+
+    <!-- Add all of Phaser necessary files -->
+    <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="phaser.min.js"></script>
     <script src="boot.js"></script>
     <script src="preloader.js"></script>
     <script src="mainMenu.js"></script>
     <script src="game.js"></script>
     <script src="app.js"></script>
-</head>
-<body>
-	<div class="options">
-		<form id="options">
-			<label for="plane">Select your plane:</label>
-			<select name="plane">
-				<option value="">Plane 1</option>
-				<option value="2">Plane 2</option>
-				<option value="3">Plane 3</option>
-				<option value="4">Plane 4</option>
-			</select>
-		</form>
-	</div>
-<div id="gameContainer"></div>
-
-<script type="text/javascript" src="jquery-1.11.2.js"></script>
 </body>
 </html>
