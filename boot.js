@@ -44,8 +44,6 @@ var BasicGame = {
   RETURN_MESSAGE_DELAY: Phaser.Timer.SECOND * 2
 };
 
-var dataLayer = [];
-
 BasicGame.Boot = function (game) {
 
 };
