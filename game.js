@@ -16,6 +16,14 @@ BasicGame.Game.prototype = {
 
         this.setupAudio();
 
+        dataLayer.push({
+            'event': 'gameStart',
+            'audioOn': BasicGame.ENABLE_SOUND,
+            'playerSprite': BasicGame.PLAYER_SPRITE,
+        });
+
+
+
         // Implement keyboard control with arrow keys
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -235,6 +243,7 @@ BasicGame.Game.prototype = {
         this.instExpire = this.time.now + BasicGame.INSTRUCTION_EXPIRE;
 
         this.score = 0;
+        this.killCount = 0;
         this.scoreText = this.add.text(
             this.game.width / 2, 30, '' + this.score,
             {font: '20px monospace', fill: '#fff', align: 'center' }
@@ -523,6 +532,16 @@ BasicGame.Game.prototype = {
         if (enemy.alive) {
             enemy.play('hit');
         } else {
+
+            this.killCount = this.killCount + 1 || 1;
+
+            dataLayer.push({
+              'event': 'enemyKilled',
+              'currentScore': this.score,
+              'enemyType': enemy.key,
+              'enemyReward': enemy.reward,
+            });
+
             this.explode(enemy);
             if ( BasicGame.ENABLE_SOUND) {
                 this.explosionSFX.play();
@@ -555,6 +574,7 @@ BasicGame.Game.prototype = {
 
     playerPowerUp: function (player, powerUp) {
         this.addToScore(powerUp.reward);
+
         powerUp.kill();
         if ( BasicGame.ENABLE_SOUND) {
             this.powerUpSFX.play();
@@ -636,6 +656,16 @@ BasicGame.Game.prototype = {
         }
 
         var msg = win ? 'You Win!!!' : 'Game Over';
+
+        dataLayer.push({
+            'event': 'gameEnd',
+            'finalScore': this.score,
+            'killCount': this.killCount,
+            'weaponLevel': this.weaponLevel,
+
+            'gameCleared': win
+        });
+
         this.endText = this.add.text(
             this.game.width / 2, this.game.height / 2 - 60, msg,
             { font: '72px serif', fill: '#fff'}

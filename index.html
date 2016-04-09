@@ -15,6 +15,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#59D1DB">
 </head>
 <body>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NWRN76"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NWRN76');</script>
+    <!-- End Google Tag Manager -->
+
     <div style="text-align: center; margin: 0 auto;">
         <label for="sound">
             Enable sound?
@@ -22,8 +32,8 @@
         </label>
         <label for="plane">
             Select your plane:
-            <select name="plane">
-                <option value="">Plane 1</option>
+            <select id="planeSelector" name="plane">
+                <option value="1">Plane 1</option>
                 <option value="2">Plane 2</option>
                 <option value="3">Plane 3</option>
                 <option value="4">Plane 4</option>

@@ -36,13 +36,15 @@ var BasicGame = {
   BOSS_DROP_RATE: 0,
 
   PLAYER_EXTRA_LIVES: 3,
-  PLAYER_SPRITE: '',
+  PLAYER_SPRITE: '1',
   ENABLE_SOUND: false,
   PLAYER_GHOST_TIME: Phaser.Timer.SECOND * 3,
 
   INSTRUCTION_EXPIRE: Phaser.Timer.SECOND * 10,
   RETURN_MESSAGE_DELAY: Phaser.Timer.SECOND * 2
 };
+
+var dataLayer = [];
 
 BasicGame.Boot = function (game) {
 
